@@ -1,0 +1,20 @@
+{
+  "id": 1,
+  "customerId": 10001,
+  "addressId": 1000100,
+  "status": "payoff",
+  "orderItems": [
+    {
+      "id": 10,
+      "productId": 30001,
+      "price": 4000,
+      "quantity": 3
+    },
+    {
+      "id": 11,
+      "productId": 30002,
+      "price": 12600,
+      "quantity": 1
+    }
+  ]
+}
