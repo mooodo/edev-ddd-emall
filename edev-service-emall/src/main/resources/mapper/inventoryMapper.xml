@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.edev.emall.query.dao.OrderMapper">
+<mapper namespace="com.edev.emall.query.dao.InventoryMapper">
 	<sql id="select">
-		SELECT * FROM t_order WHERE 1 = 1
+		SELECT * FROM t_inventory WHERE 1 = 1
 	</sql>
 	
 	<sql id="conditions">
 		<if test="id != '' and id != null">
 			and id in (${id})
-		</if>
-		<if test="customerId != '' and customerId != null">
-			and customer_id = ${customerId}
-		</if>
-		<if test="orderTimeBegin != '' and orderTimeBegin != null">
-			and order_time >= '${orderTimeBegin}'
-		</if>
-		<if test="orderTimeEnd != '' and orderTimeEnd != null">
-			<![CDATA[
-			and order_time < '${orderTimeEnd}'
-			]]>
 		</if>
 	</sql>
 	

@@ -21,10 +21,13 @@ public class PaymentServiceImpl implements PaymentService {
         Long orderId = payment.getId();
         Order order = orderService.load(orderId);
         if(order==null) throw new ValidException("Not exists the order to payoff!");
-        payment.setAmount(order.getAmount());
-        payment.setStatus("payoff");
-        payment.setPaymentTime(DateUtils.getNow());
-        dao.insert(payment);
+        if(order.getPayment()==null) order.readyForPay();
+        order.getPayment().setAmount(order.getAmount());
+        order.getPayment().setMethod(payment.getMethod());
+        order.getPayment().setStatus("payoff");
+        order.getPayment().setPaymentTime(DateUtils.getNow());
+        order.setStatus("payoff");
+        dao.update(order);
     }
 
     @Override

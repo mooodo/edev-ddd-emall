@@ -12,6 +12,8 @@
               class="com.edev.emall.order.entity.Customer"/>
         <join name="address" joinKey="addressId" joinType="manyToOne"
               class="com.edev.emall.customer.entity.Address"/>
+        <join name="payment" joinType="oneToOne" isAggregation="true"
+              class="com.edev.emall.order.entity.Payment"/>
         <join name="orderItems" joinKey="orderId" joinType="oneToMany" isAggregation="true"
               class="com.edev.emall.order.entity.OrderItem"/>
     </do>

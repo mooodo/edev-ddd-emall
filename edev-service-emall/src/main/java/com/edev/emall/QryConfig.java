@@ -5,6 +5,7 @@ import com.edev.support.dao.QueryDao;
 import com.edev.support.ddd.AutofillQueryServiceImpl;
 import com.edev.support.ddd.QueryDaoMybastisImplForDdd;
 import com.edev.support.query.QueryService;
+import com.edev.support.query.impl.QueryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -72,28 +73,6 @@ public class QryConfig {
                 vipQryDao(), basicDaoWithCache);
     }
     @Bean
-    public QueryDao productQryDao() {
-        return new QueryDaoMybastisImplForDdd(
-                "com.edev.emall.product.entity.Product",
-                "com.edev.emall.query.dao.ProductMapper");
-    }
-    @Bean
-    public QueryService productQry() {
-        return new AutofillQueryServiceImpl(
-                productQryDao(), basicDaoWithCache);
-    }
-    @Bean
-    public QueryDao orderQryDao() {
-        return new QueryDaoMybastisImplForDdd(
-                "com.edev.emall.order.entity.Order",
-                "com.edev.emall.query.dao.OrderMapper");
-    }
-    @Bean
-    public QueryService orderQry() {
-        return new AutofillQueryServiceImpl(
-                orderQryDao(), repositoryWithCache);
-    }
-    @Bean
     public QueryDao supplierQryDao() {
         return new QueryDaoMybastisImplForDdd(
                 "com.edev.emall.supplier.entity.Supplier",
@@ -114,5 +93,38 @@ public class QryConfig {
     public QueryService staffQry() {
         return new AutofillQueryServiceImpl(
                 staffQryDao(), basicDaoWithCache);
+    }
+    @Bean
+    public QueryDao productQryDao() {
+        return new QueryDaoMybastisImplForDdd(
+                "com.edev.emall.product.entity.Product",
+                "com.edev.emall.query.dao.ProductMapper");
+    }
+    @Bean
+    public QueryService productQry() {
+        return new AutofillQueryServiceImpl(
+                productQryDao(), basicDaoWithCache);
+    }
+    @Bean
+    public QueryDao inventoryQryDao() {
+        return new QueryDaoMybastisImplForDdd(
+                "com.edev.emall.inventory.entity.Inventory",
+                "com.edev.emall.query.dao.InventoryMapper"
+        );
+    }
+    @Bean
+    public QueryService inventoryQry() {
+        return new QueryServiceImpl(inventoryQryDao());
+    }
+    @Bean
+    public QueryDao orderQryDao() {
+        return new QueryDaoMybastisImplForDdd(
+                "com.edev.emall.order.entity.Order",
+                "com.edev.emall.query.dao.OrderMapper");
+    }
+    @Bean
+    public QueryService orderQry() {
+        return new AutofillQueryServiceImpl(
+                orderQryDao(), repositoryWithCache);
     }
 }

@@ -14,7 +14,7 @@
 			and (id like '%${value}' or name like '%${value}')
 		</if>
 		<if test="gender != '' and gender != null">
-			and gender = ${gender}
+			and gender = '${gender}'
 		</if>
 	</sql>
 	

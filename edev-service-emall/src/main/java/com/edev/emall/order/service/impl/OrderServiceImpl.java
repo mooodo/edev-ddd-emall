@@ -3,6 +3,7 @@ package com.edev.emall.order.service.impl;
 import com.edev.emall.customer.service.CustomerService;
 import com.edev.emall.order.entity.Order;
 import com.edev.emall.order.entity.OrderItem;
+import com.edev.emall.order.entity.Payment;
 import com.edev.emall.order.service.DiscountService;
 import com.edev.emall.order.service.OrderService;
 import com.edev.emall.product.service.ProductService;
@@ -30,27 +31,16 @@ public class OrderServiceImpl implements OrderService {
                 (orderItem)->isNotExists(orderItem.getProductId(), (value)->productService.exists(value), "the product of the order item")
         );
     }
-    private void calculateAmountForEachItem(Order order) {
-        order.getOrderItems().forEach(orderItem -> {
-            double amount = orderItem.getPrice() * orderItem.getQuantity();
-            orderItem.setAmount(amount);
-        });
-    }
     private void discount(Order order) {
         if(order!=null) discountService.doDiscount(order);
-    }
-    private void sumOfAmount(Order order) {
-        Double totalAmount = 0D;
-        for (OrderItem orderItem : order.getOrderItems())
-            totalAmount += orderItem.getAmount();
-        order.setAmount(totalAmount);
     }
     @Override
     public Long create(Order order) {
         valid(order);
-        calculateAmountForEachItem(order);
+        order.calculateAmountForEachItem();
         discount(order);
-        sumOfAmount(order);
+        order.sumOfAmount();
+        order.readyForPay();
         order.setStatus("create");
         order.setOrderTime(DateUtils.getNow());
         return dao.insert(order);
@@ -59,9 +49,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void modify(Order order) {
         valid(order);
-        calculateAmountForEachItem(order);
+        order.calculateAmountForEachItem();
         discount(order);
-        sumOfAmount(order);
+        order.sumOfAmount();
+        if(order.getPayment()==null) order.readyForPay();
+        else order.getPayment().setAmount(order.getAmount());
         order.setModifyTime(DateUtils.getNow());
         dao.update(order);
     }

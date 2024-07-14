@@ -41,17 +41,12 @@ public class OrderAggServiceImpl implements OrderAggService {
         Long orderId = payment.getId();
         Order order = orderService.load(orderId);
         if(order==null) throw new ValidException("The order not exists[orderId:%s]",orderId);
-        if(paymentService.isPayoff(orderId))
-            throw new ValidException("The order has payoff, so cannot payoff twice!");
         log.debug("payoff the order");
         paymentService.payoff(payment);
         log.debug("stock out for each of the order items");
         order.getOrderItems().forEach(orderItem -> {
             inventoryService.stockOut(orderItem.getProductId(), orderItem.getQuantity());
         });
-        log.debug("change the order's status to payoff");
-        order.setStatus("payoff");
-        orderService.modify(order);
     }
 
     @Override
@@ -59,8 +54,6 @@ public class OrderAggServiceImpl implements OrderAggService {
     public void returnGoods(Long orderId) {
         Order order = orderService.load(orderId);
         if(order==null) throw new ValidException("The order not exists[orderId:%s]",orderId);
-        if(!paymentService.isPayoff(orderId))
-            throw new ValidException("The order hasn't payoff, so cannot return goods!");
         log.debug("refund for the order");
         paymentService.refund(orderId);
         order.getOrderItems().forEach(orderItem -> {
