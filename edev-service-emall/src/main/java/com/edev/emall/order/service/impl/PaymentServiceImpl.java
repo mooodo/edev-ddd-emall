@@ -4,48 +4,39 @@ import com.edev.emall.order.entity.Order;
 import com.edev.emall.order.entity.Payment;
 import com.edev.emall.order.service.OrderService;
 import com.edev.emall.order.service.PaymentService;
+import com.edev.emall.order.service.impl.payment.PaymentAdaptor;
 import com.edev.support.dao.BasicDao;
 import com.edev.support.exception.ValidException;
 import com.edev.support.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
+@Service("payment")
 public class PaymentServiceImpl implements PaymentService {
-    private final BasicDao dao;
-    public PaymentServiceImpl(BasicDao dao) {
-        this.dao = dao;
-    }
+    @Autowired
+    private ApplicationContext applicationContext;
     @Autowired
     private OrderService orderService;
+    private Map<String, PaymentAdaptor> adaptors;
+    private Map<String, PaymentAdaptor> getAdaptors() {
+        if(adaptors == null)
+            adaptors = applicationContext.getBeansOfType(PaymentAdaptor.class);
+        return adaptors;
+    }
     @Override
-    public void payoff(Payment payment) {
-        Long orderId = payment.getId();
-        Order order = orderService.load(orderId);
-        if(order==null) throw new ValidException("Not exists the order to payoff!");
-        if(order.getPayment()==null) order.readyForPay();
-        order.getPayment().setAmount(order.getAmount());
-        order.getPayment().setMethod(payment.getMethod());
-        order.getPayment().setStatus("payoff");
-        order.getPayment().setPaymentTime(DateUtils.getNow());
-        order.setStatus("payoff");
-        dao.update(order);
+    public void payoff(Order order) {
+        Payment payment = order.getPayment();
+        PaymentAdaptor adaptor = getAdaptors().get(payment.getMethod()+"Adaptor");
+        adaptor.payoff(order.getCustomerId(), payment.getAmount());
     }
 
     @Override
-    public void refund(Long orderId) {
-        Payment payment = check(orderId);
-        if(payment==null||!payment.getStatus().equals("payoff"))
-            throw new ValidException("The order cannot refund[orderId:%s", orderId);
-        payment.setStatus("refund");
-        dao.update(payment);
-    }
-
-    @Override
-    public Payment check(Long orderId) {
-        return dao.load(orderId, Payment.class);
-    }
-
-    @Override
-    public Boolean isPayoff(Long orderId) {
-        return check(orderId)!=null;
+    public void refund(Order order) {
+        Payment payment = order.getPayment();
+        PaymentAdaptor adaptor = getAdaptors().get(payment.getMethod()+"Adaptor");
+        adaptor.refund(order.getCustomerId(), payment.getAmount());
     }
 }

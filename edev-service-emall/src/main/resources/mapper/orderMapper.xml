@@ -11,14 +11,14 @@
 			and id in (${id})
 		</if>
 		<if test="customerId != '' and customerId != null">
-			and customer_id = ${customerId}
+			and customer_id = #{customerId}
 		</if>
 		<if test="orderTimeBegin != '' and orderTimeBegin != null">
-			and order_time >= '${orderTimeBegin}'
+			and order_time >= #{orderTimeBegin}
 		</if>
 		<if test="orderTimeEnd != '' and orderTimeEnd != null">
 			<![CDATA[
-			and order_time < '${orderTimeEnd}'
+			and order_time < #{orderTimeEnd}
 			]]>
 		</if>
 	</sql>

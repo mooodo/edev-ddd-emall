@@ -71,6 +71,10 @@ public class OrmConfig {
         return new AccountServiceImpl(repository);
     }
     @Bean
+    public JournalAccountService journalAccount() {
+        return new JournalAccountServiceImpl(basicDao);
+    }
+    @Bean
     public CountryService country() {
         return new CountryServiceImpl(basicDaoWithCache);
     }
@@ -129,10 +133,6 @@ public class OrmConfig {
     @Bean
     public OrderService order() {
         return new OrderServiceImpl(repository);
-    }
-    @Bean
-    public PaymentService payment() {
-        return new PaymentServiceImpl(basicDao);
     }
     @Bean
     public DiscountService discount() {

@@ -62,6 +62,27 @@ public class QryConfig {
                 customerQryDao(), basicDaoWithCache);
     }
     @Bean
+    public QueryDao accountQryDao() {
+        return new QueryDaoMybastisImplForDdd(
+                "com.edev.emall.customer.entity.Account",
+                "com.edev.emall.query.dao.AccountMapper");
+    }
+    @Bean
+    public QueryService accountQry() {
+        return new AutofillQueryServiceImpl(
+                accountQryDao(), basicDaoWithCache);
+    }
+    @Bean
+    public QueryDao journalAccountQryDao() {
+        return new QueryDaoMybastisImplForDdd(
+                "com.edev.emall.customer.entity.JournalAccount",
+                "com.edev.emall.query.dao.JournalAccountMapper");
+    }
+    @Bean
+    public QueryService journalAccountQry() {
+        return new QueryServiceImpl(journalAccountQryDao());
+    }
+    @Bean
     public QueryDao vipQryDao() {
         return new QueryDaoMybastisImplForDdd(
                 "com.edev.emall.vip.entity.Vip",

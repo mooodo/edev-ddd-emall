@@ -1,10 +1,8 @@
 package com.edev.emall.order.service;
 
-import com.edev.emall.order.entity.Payment;
+import com.edev.emall.order.entity.Order;
 
 public interface PaymentService {
-    void payoff(Payment payment);
-    void refund(Long orderId);
-    Payment check(Long orderId);
-    Boolean isPayoff(Long orderId);
+    void payoff(Order order);
+    void refund(Order order);
 }
