@@ -6,10 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DefaultUserDetails implements UserDetails {
     private final User user;
@@ -18,10 +16,11 @@ public class DefaultUserDetails implements UserDetails {
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<Authority> authorities = user.getAuthorities();
+        List<Authority> authorities = new ArrayList<>(user.getAuthorities());
         user.getRoles().forEach(role -> authorities.addAll(role.getAuthorities()));
+
         Collection<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        authorities.stream().distinct().forEach(authority -> {
+        authorities.forEach(authority -> {
             grantedAuthorities.add(new GrantedAuthority() {
                 @Override
                 public String getAuthority() {
@@ -29,7 +28,14 @@ public class DefaultUserDetails implements UserDetails {
                 }
             });
         });
-        return grantedAuthorities;
+
+        grantedAuthorities.add(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return user.getUserType();
+            }
+        });
+        return grantedAuthorities.stream().distinct().collect(Collectors.toSet());
     }
 
     @Override
