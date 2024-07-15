@@ -67,6 +67,10 @@ public class OrmConfig {
         return new CustomerServiceImpl(repositoryWithCache);
     }
     @Bean
+    public AccountService account() {
+        return new AccountServiceImpl(repository);
+    }
+    @Bean
     public CountryService country() {
         return new CountryServiceImpl(basicDaoWithCache);
     }
