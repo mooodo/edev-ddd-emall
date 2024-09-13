@@ -1,6 +1,6 @@
 {
   "id": 10001,
-  "vipType": "golden",
+  "vipLevel": "golden",
   "points": 5500,
   "accumulatedPoints": 20500,
   "image": "/img/man.jpg",

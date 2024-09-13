@@ -9,5 +9,5 @@ import lombok.EqualsAndHashCode;
 public class UpgradeRule extends Entity<Long> {
     private Long id;
     private String vipLevel;
-    private String pointsNeed;
+    private Double pointsNeed;
 }

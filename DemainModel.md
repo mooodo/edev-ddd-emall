@@ -227,7 +227,7 @@
 3.**升级规则（UpgroundRule） - 值对象**
 - **属性**：
   - 规则ID（Id）：唯一标识。
-  - 会员等级（VipLevel）：会员的等级
+  - 会员类型（VipLevel）：会员的等级
   - 积分要求（PointsNeed）：达到该等级所需的积分
 - **方法**：
   - calculateLevel(vipId)：根据会员累计积分计算会员等级
@@ -392,7 +392,7 @@
   - remove(orderId)：客户删除自己的订单。
   - load(orderId)：查找订单。
   - placeOrder(Order)：提交订单，提交以后就开始进入支付流程。
-  - cancelOrder(orderId)：在没有提交订单前取消订单。
+  - cancelOrder(orderId)：在没有支付订单前取消订单。
   - payoff(orderId)：支付订单金额，完成支付以后将库存扣减，并进入物流流程。
   - returnGoods(orderId)：在支付订单以后退货。
 - **关系**：

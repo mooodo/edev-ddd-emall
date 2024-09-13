@@ -4,7 +4,7 @@
   "description": "an authority for test",
   "users": [
     {
-      "id": 999
+      "id": 999, "userType": "guest"
     }
   ]
 }

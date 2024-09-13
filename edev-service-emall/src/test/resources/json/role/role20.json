@@ -3,6 +3,6 @@
   "name": "test role",
   "description": "a role to test system",
   "users": [
-    {"id": 999}
+    { "id": 999, "userType": "guest" }
   ]
 }

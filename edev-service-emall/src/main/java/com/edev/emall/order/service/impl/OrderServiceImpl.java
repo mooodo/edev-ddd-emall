@@ -2,12 +2,12 @@ package com.edev.emall.order.service.impl;
 
 import com.edev.emall.customer.service.CustomerService;
 import com.edev.emall.order.entity.Order;
-import com.edev.emall.order.entity.OrderItem;
-import com.edev.emall.order.entity.Payment;
 import com.edev.emall.order.service.DiscountService;
 import com.edev.emall.order.service.OrderService;
+import com.edev.emall.product.entity.Product;
 import com.edev.emall.product.service.ProductService;
 import com.edev.support.dao.BasicDao;
+import com.edev.support.exception.ValidException;
 import com.edev.support.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,7 +28,12 @@ public class OrderServiceImpl implements OrderService {
         isNotExists(order.getCustomerId(), (value)-> customerService.exists(value), "the customer of the order");
         isNotExists(order.getAddressId(), (value)-> customerService.existsAddress(value), "the address of the order");
         order.getOrderItems().forEach(
-                (orderItem)->isNotExists(orderItem.getProductId(), (value)->productService.exists(value), "the product of the order item")
+                (orderItem)->{
+                    Product product = productService.load(orderItem.getProductId());
+                    if(product == null)
+                        throw new ValidException("Not exists the product[%s] of the order item", orderItem.getProductId());
+                    orderItem.setPrice(product.getPrice());
+                }
         );
     }
     private void discount(Order order) {

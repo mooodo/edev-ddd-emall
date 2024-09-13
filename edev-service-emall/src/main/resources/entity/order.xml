@@ -62,7 +62,7 @@
         <property name="endTime" column="end_time"/>
         <property name="discount" column="discount"/>
         <property name="discountType" column="discount_type" isDiscriminator="true"/>
-        <property name="vipType" column="vip_type"/>
+        <property name="vipLevel" column="vip_level"/>
     </do>
     <do class="com.edev.emall.order.entity.ProductDiscount" tableName="t_product_discount">
         <property name="id" column="id" isPrimaryKey="true"/>

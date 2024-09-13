@@ -6,10 +6,14 @@ import com.edev.emall.vip.entity.Vip;
 import com.edev.emall.vip.service.PointsRuleService;
 import com.edev.emall.vip.service.UpgradeRuleService;
 import com.edev.emall.vip.service.VipService;
+import com.edev.support.entity.ResultSet;
+import com.edev.support.query.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Map;
 
 @RestController
 @RequestMapping("vip")
@@ -31,6 +35,12 @@ public class VipController {
     @GetMapping("load")
     public Vip load(Long vipId) {
         return vipService.load(vipId);
+    }
+    @Autowired @Qualifier("vipQry")
+    private QueryService queryService;
+    @PostMapping("query")
+    public ResultSet query(Map<String, Object> params) {
+        return queryService.query(params);
     }
     @Autowired
     private PointsRuleService pointsRuleService;

@@ -8,7 +8,7 @@
         <property name="accumulatedPoints" column="accumulated_points"/>
         <join name="customer" joinType="oneToOne"
               class="com.edev.emall.customer.entity.Customer"/>
-        <property name="vipType" column="vip_type" isDiscriminator="true"/>
+        <property name="vipLevel" column="vip_level" isDiscriminator="true"/>
         <subclass class="com.edev.emall.vip.entity.GoldenVip" value="golden">
             <property name="image" column="image"/>
             <property name="creditLimit" column="credit_limit"/>

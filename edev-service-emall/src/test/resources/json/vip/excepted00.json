@@ -1,6 +1,6 @@
 {
   "id": 10001,
-  "vipType": "silver",
+  "vipLevel": "silver",
   "points": 1000,
   "accumulatedPoints": 5000,
   "customer": {

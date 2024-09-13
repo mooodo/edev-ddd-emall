@@ -4,8 +4,13 @@ import com.edev.emall.order.entity.Order;
 import com.edev.emall.order.entity.Payment;
 import com.edev.emall.order.service.OrderAggService;
 import com.edev.emall.order.service.OrderService;
+import com.edev.support.entity.ResultSet;
+import com.edev.support.query.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("order")
@@ -21,8 +26,8 @@ public class OrderController {
         orderAggService.cancelOrder(orderId);
     }
     @PostMapping("payoff")
-    public void payoff(@RequestBody Payment payment) {
-        orderAggService.payoff(payment);
+    public void payoff(Long orderId, String paymentMethod) {
+        orderAggService.payoff(orderId, paymentMethod);
     }
     @GetMapping("returnGoods")
     public void returnGoods(Long orderId) {
@@ -33,5 +38,11 @@ public class OrderController {
     @PostMapping("load")
     public Order load(Long orderId) {
         return orderService.load(orderId);
+    }
+    @Autowired @Qualifier("orderQry")
+    private QueryService queryService;
+    @PostMapping("query")
+    public ResultSet query(@RequestBody Map<String, Object> params) {
+        return queryService.query(params);
     }
 }

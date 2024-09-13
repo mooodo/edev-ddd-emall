@@ -4,7 +4,7 @@ import com.edev.emall.order.entity.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("weChatAdaptor")
 @Slf4j
 public class WeChatAdaptor implements PaymentAdaptor {
     @Override

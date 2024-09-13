@@ -6,10 +6,14 @@ import com.edev.emall.product.entity.ProductCategory;
 import com.edev.emall.product.service.BrandService;
 import com.edev.emall.product.service.ProductCategoryService;
 import com.edev.emall.product.service.ProductService;
+import com.edev.support.entity.ResultSet;
+import com.edev.support.query.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Map;
 
 @RestController
 @RequestMapping("product")
@@ -31,6 +35,12 @@ public class ProductController {
     @GetMapping("load")
     public Product load(Long productId) {
         return productService.load(productId);
+    }
+    @Autowired @Qualifier("productQry")
+    private QueryService queryService;
+    @PostMapping("query")
+    public ResultSet query(Map<String, Object> params) {
+        return queryService.query(params);
     }
     @Autowired
     private BrandService brandService;

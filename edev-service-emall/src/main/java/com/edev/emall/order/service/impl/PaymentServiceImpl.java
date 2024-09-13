@@ -1,13 +1,9 @@
 package com.edev.emall.order.service.impl;
 
-import com.edev.emall.order.entity.Order;
 import com.edev.emall.order.entity.Payment;
 import com.edev.emall.order.service.OrderService;
 import com.edev.emall.order.service.PaymentService;
 import com.edev.emall.order.service.impl.payment.PaymentAdaptor;
-import com.edev.support.dao.BasicDao;
-import com.edev.support.exception.ValidException;
-import com.edev.support.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -27,16 +23,14 @@ public class PaymentServiceImpl implements PaymentService {
         return adaptors;
     }
     @Override
-    public void payoff(Order order) {
-        Payment payment = order.getPayment();
+    public void payoff(Long customerId, Payment payment) {
         PaymentAdaptor adaptor = getAdaptors().get(payment.getMethod()+"Adaptor");
-        adaptor.payoff(order.getCustomerId(), payment.getAmount());
+        adaptor.payoff(customerId, payment.getAmount());
     }
 
     @Override
-    public void refund(Order order) {
-        Payment payment = order.getPayment();
+    public void refund(Long customerId, Payment payment) {
         PaymentAdaptor adaptor = getAdaptors().get(payment.getMethod()+"Adaptor");
-        adaptor.refund(order.getCustomerId(), payment.getAmount());
+        adaptor.refund(customerId, payment.getAmount());
     }
 }

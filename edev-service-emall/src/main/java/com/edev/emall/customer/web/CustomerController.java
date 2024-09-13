@@ -2,14 +2,15 @@ package com.edev.emall.customer.web;
 
 import com.edev.emall.customer.entity.*;
 import com.edev.emall.customer.service.*;
+import com.edev.support.entity.ResultSet;
+import com.edev.support.query.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Map;
 
 @RestController
 @RequestMapping("customer")
@@ -35,6 +36,12 @@ public class CustomerController {
     @PreAuthorize("hasAuthority('customer')")
     public Customer load(Long customerId) {
         return service.load(customerId);
+    }
+    @Autowired @Qualifier("customerQry")
+    private QueryService queryService;
+    @PostMapping("query")
+    public ResultSet query(@RequestBody Map<String, Object> params) {
+        return queryService.query(params);
     }
     @Autowired
     private CountryService countryService;

@@ -1,5 +1,8 @@
 package com.edev.emall.vip.service.impl;
 
+import com.edev.emall.vip.dao.VipRuleDao;
+import com.edev.emall.vip.entity.PointsRule;
+import com.edev.emall.vip.entity.UpgradeRule;
 import com.edev.emall.vip.entity.Vip;
 import com.edev.emall.customer.service.CustomerService;
 import com.edev.emall.vip.service.VipService;
@@ -24,6 +27,9 @@ public class VipServiceImpl implements VipService {
     public Long register(Vip vip) {
         valid(vip);
         vip.setCreateTime(DateUtils.getNow());
+        if(vip.getVipLevel()==null) vip.setVipLevel("silver");
+        if(vip.getPoints()==null) vip.setPoints(0D);
+        if(vip.getAccumulatedPoints()==null) vip.setAccumulatedPoints(0D);
         return dao.insert(vip);
     }
 
@@ -54,22 +60,37 @@ public class VipServiceImpl implements VipService {
         return load(customerId);
     }
 
+    @Autowired
+    private VipRuleDao vipRuleDao;
     @Override
-    public void accumulatePoints(Long vipId, long spendingAmount) {
+    public void accumulatePoints(Long vipId, Double amount) {
         Vip vip = load(vipId);
         if(vip==null) return;
-        vip.setPoints(vip.getPoints()+spendingAmount);
-        vip.setAccumulatedPoints(vip.getAccumulatedPoints()+spendingAmount);
+        PointsRule pointsRule = vipRuleDao.getPointsRule(amount);
+        if(pointsRule==null) return;
+        Double points = pointsRule.calculatePoints(amount);
+        vip.setPoints(vip.getPoints() + points);
+        vip.setAccumulatedPoints(vip.getAccumulatedPoints() + points);
+        upgradeVipLevel(vip);
+        modify(vip);
+    }
+
+    private void upgradeVipLevel(Vip vip) {
+        UpgradeRule upgradeRule = vipRuleDao.getUpgradeRule(vip.getAccumulatedPoints());
+        if(upgradeRule==null) return;
+        String vipLevel = upgradeRule.getVipLevel();
+        vip.setVipLevel(vipLevel);
     }
 
     @Override
-    public Long redeemPoints(Long vipId, long pointsToRedeem) {
+    public Double redeemPoints(Long vipId, Double points) {
         Vip vip = load(vipId);
-        if(vip==null) throw new ValidException("The vip not exist");
-        if(vip.getPoints()==null) throw new ValidException("No points of the vip");
-        long points = vip.getPoints()-pointsToRedeem;
-        if(points<0) throw new ValidException("Not enough the points of the vip");
-        vip.setPoints(points);
-        return points;
+        isNull(vip, "The vip is not exists");
+        isNull(vip.getPoints(), "No points of the vip");
+        Double result = vip.getPoints()-points;
+        if(result < 0) throw new ValidException("Not enough the points of the vip");
+        vip.setPoints(result);
+        modify(vip);
+        return result;
     }
 }

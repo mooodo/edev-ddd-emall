@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("com.edev")
-@MapperScan("com.edev.support.dao")
+@MapperScan({"com.edev.support.dao", "com.edev.emall.*.dao"})
 public class EMallApplication {
     public static void main(String[] args) {
         SpringApplication.run(EMallApplication.class, args);

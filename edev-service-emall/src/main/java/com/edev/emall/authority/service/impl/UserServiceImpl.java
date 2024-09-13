@@ -4,6 +4,7 @@ import com.edev.emall.authority.entity.User;
 import com.edev.emall.authority.service.UserService;
 import com.edev.emall.utils.ValidUtils;
 import com.edev.support.dao.BasicDao;
+import com.edev.support.exception.ValidException;
 
 import java.util.Collection;
 
@@ -21,12 +22,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public Long register(User user) {
         valid(user);
+        if(userExists(user.getUsername()))
+            throw new ValidException("The username exists[%s]", user.getUsername());
         return dao.insert(user);
     }
 
     @Override
     public void modify(User user) {
         valid(user);
+        User oldUser = load(user.getId());
+        if(!user.getUsername().equals(oldUser.getUsername()))
+            throw new ValidException("The username cannot modify[%s]", user.getUsername());
         dao.update(user);
     }
 

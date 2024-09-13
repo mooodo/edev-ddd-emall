@@ -137,6 +137,18 @@ public class QryConfig {
     public QueryService inventoryQry() {
         return new QueryServiceImpl(inventoryQryDao());
     }
+
+    @Bean
+    public QueryDao inventoryRecordQryDao() {
+        return new QueryDaoMybastisImplForDdd(
+                "com.edev.emall.inventory.entity.InventoryRecord",
+                "com.edev.emall.query.dao.InventoryRecordMapper"
+        );
+    }
+    @Bean
+    public QueryService inventoryRecordQry() {
+        return new QueryServiceImpl(inventoryRecordQryDao());
+    }
     @Bean
     public QueryDao orderQryDao() {
         return new QueryDaoMybastisImplForDdd(
