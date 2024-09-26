@@ -393,7 +393,7 @@
   - load(orderId)：查找订单。
   - placeOrder(Order)：提交订单，提交以后就开始进入支付流程。
   - cancelOrder(orderId)：在没有支付订单前取消订单。
-  - payoff(orderId)：支付订单金额，完成支付以后将库存扣减，并进入物流流程。
+  - payoff(orderId, paymentMethod)：支付订单金额，完成支付以后将库存扣减，并进入物流流程。
   - returnGoods(orderId)：在支付订单以后退货。
 - **关系**：
   - 多对一：一个订单只能有一个**客户**（Customer），一个客户可以有多个订单
@@ -421,8 +421,7 @@
   - 支付状态（Status）：如待支付、支付成功、支付失败。
   - 支付时间（PaymentTime）：支付完成的时间。
 - **方法**：
-  - payoff(orderId)：支付订单的金额。
-  - refund(orderId)：退货时进行退款。
-  - check(orderId)：检查订单的支付情况。
+  - payoff(customerId, payment)：支付订单的金额。
+  - refund(customerId, payment)：退货时进行退款。
 - **关系**：
   - 一对一：一个**订单**（Order）只能有一个支付。
