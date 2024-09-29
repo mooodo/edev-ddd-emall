@@ -1,6 +1,5 @@
 package com.edev.emall.order.service.impl.payment;
 
-import com.edev.emall.order.entity.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

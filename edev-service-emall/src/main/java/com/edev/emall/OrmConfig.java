@@ -138,4 +138,8 @@ public class OrmConfig {
     public DiscountService discount() {
         return new DiscountServiceImpl(repository);
     }
+    @Bean
+    public PaymentService payment() {
+        return new PaymentServiceImpl(basicDao);
+    }
 }

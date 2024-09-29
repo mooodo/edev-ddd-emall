@@ -7,7 +7,6 @@ import com.edev.emall.order.service.OrderService;
 import com.edev.emall.product.entity.Product;
 import com.edev.emall.product.service.ProductService;
 import com.edev.support.dao.BasicDao;
-import com.edev.support.exception.ValidException;
 import com.edev.support.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,8 +29,7 @@ public class OrderServiceImpl implements OrderService {
         order.getOrderItems().forEach(
                 (orderItem)->{
                     Product product = productService.load(orderItem.getProductId());
-                    if(product == null)
-                        throw new ValidException("Not exists the product[%s] of the order item", orderItem.getProductId());
+                    isNull(product, "Not exists the product[%d] of the order item", orderItem.getProductId());
                     orderItem.setPrice(product.getPrice());
                 }
         );
@@ -45,8 +43,6 @@ public class OrderServiceImpl implements OrderService {
         order.calculateAmountForEachItem();
         discount(order);
         order.sumOfAmount();
-        order.readyForPay();
-        order.setStatus("create");
         order.setOrderTime(DateUtils.getNow());
         return dao.insert(order);
     }
@@ -57,8 +53,6 @@ public class OrderServiceImpl implements OrderService {
         order.calculateAmountForEachItem();
         discount(order);
         order.sumOfAmount();
-        if(order.getPayment()==null) order.readyForPay();
-        else order.getPayment().setAmount(order.getAmount());
         order.setModifyTime(DateUtils.getNow());
         dao.update(order);
     }
