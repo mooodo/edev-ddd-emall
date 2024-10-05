@@ -26,7 +26,7 @@ public class QryConfig {
     @Bean
     public QueryService userQry() {
         return new AutofillQueryServiceImpl(
-                userQryDao(), basicDaoWithCache);
+                userQryDao(), repositoryWithCache);
     }
     @Bean
     public QueryDao roleDao() {
@@ -37,7 +37,7 @@ public class QryConfig {
     @Bean
     public QueryService roleQry() {
         return new AutofillQueryServiceImpl(
-                roleDao(), basicDaoWithCache);
+                roleDao(), repositoryWithCache);
     }
     @Bean
     public QueryDao authorityDao() {
@@ -48,7 +48,7 @@ public class QryConfig {
     @Bean
     public QueryService authorityQry() {
         return new AutofillQueryServiceImpl(
-                authorityDao(), basicDaoWithCache);
+                authorityDao(), repositoryWithCache);
     }
     @Bean
     public QueryDao customerQryDao() {
@@ -59,7 +59,7 @@ public class QryConfig {
     @Bean
     public QueryService customerQry() {
         return new AutofillQueryServiceImpl(
-                customerQryDao(), basicDaoWithCache);
+                customerQryDao(), repositoryWithCache);
     }
     @Bean
     public QueryDao accountQryDao() {
@@ -101,8 +101,7 @@ public class QryConfig {
     }
     @Bean
     public QueryService supplierQry() {
-        return new AutofillQueryServiceImpl(
-                supplierQryDao(), basicDaoWithCache);
+        return new QueryServiceImpl(supplierQryDao());
     }
     @Bean
     public QueryDao staffQryDao() {
