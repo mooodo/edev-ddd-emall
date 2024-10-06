@@ -1,6 +1,35 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
+-- Table structure for t_account
+-- ----------------------------
+DROP TABLE IF EXISTS `t_account`;
+CREATE TABLE `t_account` (
+  `id` int(20) NOT NULL,
+  `balance` decimal(20,2) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `modify_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_account
+-- ----------------------------
+INSERT INTO `t_account` VALUES ('10001', '276000.00', '2022-03-31 02:51:49', '2024-09-29 13:23:21');
+INSERT INTO `t_account` VALUES ('10002', '100000.00', '2022-03-31 02:51:49', null);
+INSERT INTO `t_account` VALUES ('10003', '100000.00', '2022-03-31 02:51:49', null);
+INSERT INTO `t_account` VALUES ('10004', '100000.00', '2022-03-31 02:51:49', null);
+INSERT INTO `t_account` VALUES ('10005', '100000.00', '2022-03-31 02:51:49', null);
+INSERT INTO `t_account` VALUES ('10006', '100000.00', '2022-03-31 02:51:49', null);
+INSERT INTO `t_account` VALUES ('10007', '100000.00', '2022-03-31 02:51:49', null);
+INSERT INTO `t_account` VALUES ('10008', '100000.00', '2022-03-31 02:51:49', null);
+INSERT INTO `t_account` VALUES ('10009', '846184.00', '2022-03-31 02:51:49', '2024-04-23 11:51:43');
+INSERT INTO `t_account` VALUES ('10012', '100000.00', '2022-03-31 02:51:49', null);
+INSERT INTO `t_account` VALUES ('10013', '100000.00', '2022-03-31 02:51:49', null);
+INSERT INTO `t_account` VALUES ('10014', '100000.00', '2022-03-31 02:51:49', null);
+INSERT INTO `t_account` VALUES ('10015', '100000.00', '2022-03-31 02:51:49', null);
+
+-- ----------------------------
 -- Table structure for t_address
 -- ----------------------------
 DROP TABLE IF EXISTS `t_address`;
@@ -25,16 +54,16 @@ INSERT INTO `t_address` VALUES ('1000101', '10001', '1000', '420000', '421000', 
 INSERT INTO `t_address` VALUES ('1000200', '10002', '1000', '370000', '370100', '370102', '山大路202号', '13422584349', '0');
 INSERT INTO `t_address` VALUES ('1000300', '10003', '1000', '110000', '110100', '110105', '朝阳公园西路9号碧湖居', null, '0');
 INSERT INTO `t_address` VALUES ('1000400', '10004', '1000', '110000', '110100', '110108', '东钓鱼台家园', null, '0');
-INSERT INTO `t_address` VALUES ('1000500', '10005', '1000', '440000', '440100', '440104', '广州圣心大教堂', null, '0');
+INSERT INTO `t_address` VALUES ('1000500', '10005', '1000', '440000', '440100', '440104', '广州圣心大教堂', null, '1');
 INSERT INTO `t_address` VALUES ('1000501', '10005', '1000', '440000', '440100', '440104', '爱群大酒店', null, '0');
 INSERT INTO `t_address` VALUES ('1000600', '10006', '1000', '440000', '440100', '440105', '华州街道办事处', null, '0');
 INSERT INTO `t_address` VALUES ('1000700', '10007', '1000', '440000', '440300', '440304', '广电金融中心', null, '0');
 INSERT INTO `t_address` VALUES ('1000800', '10008', '1000', '440000', '440300', '440305', '深圳湾出镜厅', null, '0');
 INSERT INTO `t_address` VALUES ('1000900', '10009', '1000', '510000', '510100', '510105', '宽窄巷子', null, '0');
-INSERT INTO `t_address` VALUES ('1001100', '10011', '1000', '500000', '500100', '500106', '重庆师范大学', null, '0');
+INSERT INTO `t_address` VALUES ('1001100', '10011', '1000', '500000', '500100', '500106', '重庆师范大学', null, '1');
 INSERT INTO `t_address` VALUES ('1001101', '10011', '1000', '500000', '500100', '500103', '解放碑商业大厦', null, '0');
 INSERT INTO `t_address` VALUES ('1001200', '10012', '1000', '310000', '310100', '310115', '陆家嘴中心绿地', null, '0');
-INSERT INTO `t_address` VALUES ('1001201', '10012', '1000', '310000', '310100', '310109', '国际航运服务大厦', null, '0');
+INSERT INTO `t_address` VALUES ('1001201', '10012', '1000', '310000', '310100', '310109', '国际航运服务大厦', null, '1');
 INSERT INTO `t_address` VALUES ('1001300', '10013', '1000', '330000', '330100', '330106', '莫干山路207号', null, '0');
 INSERT INTO `t_address` VALUES ('1001400', '10014', '1000', '360000', '360100', '360103', '象湖南湿地公园', null, '0');
 INSERT INTO `t_address` VALUES ('1001500', '10015', '1000', '650000', '650100', '650103', '宝山路17号', null, '0');
@@ -68,11 +97,20 @@ CREATE TABLE `t_brand` (
   `name` varchar(255) NOT NULL,
   `description` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3001 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_brand
 -- ----------------------------
+INSERT INTO `t_brand` VALUES ('1000', 'Apple', null);
+INSERT INTO `t_brand` VALUES ('1001', 'Microsoft', null);
+INSERT INTO `t_brand` VALUES ('1002', 'Kindle', null);
+INSERT INTO `t_brand` VALUES ('1003', 'HUAWEI', null);
+INSERT INTO `t_brand` VALUES ('1004', 'SIEMENS', null);
+INSERT INTO `t_brand` VALUES ('1005', '荣耀', null);
+INSERT INTO `t_brand` VALUES ('2000', '异步图书', null);
+INSERT INTO `t_brand` VALUES ('2001', '博文视点', null);
+INSERT INTO `t_brand` VALUES ('3000', '万利达', null);
 
 -- ----------------------------
 -- Table structure for t_city
@@ -3350,11 +3388,26 @@ CREATE TABLE `t_inventory` (
   `quantity` int(10) NOT NULL DEFAULT '0',
   `update_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30016 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_inventory
 -- ----------------------------
+INSERT INTO `t_inventory` VALUES ('30001', '9994', '2024-09-29 13:23:21');
+INSERT INTO `t_inventory` VALUES ('30002', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30003', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30004', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30005', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30006', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30007', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30008', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30009', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30010', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30011', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30012', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30013', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30014', '10000', '2024-07-13 00:28:10');
+INSERT INTO `t_inventory` VALUES ('30015', '10000', '2024-07-13 00:28:10');
 
 -- ----------------------------
 -- Table structure for t_inventory_record
@@ -3363,11 +3416,11 @@ DROP TABLE IF EXISTS `t_inventory_record`;
 CREATE TABLE `t_inventory_record` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `product_id` int(20) NOT NULL,
-  `quantity_change` int(10) NOT NULL,
+  `quantity` int(10) NOT NULL,
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `operation` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_inventory_record
@@ -3384,6 +3437,168 @@ INSERT INTO `t_inventory_record` VALUES ('9', '1', '1000', '2024-07-03 21:49:56'
 INSERT INTO `t_inventory_record` VALUES ('10', '1', '2000', '2024-07-03 21:51:27', 'stock in');
 INSERT INTO `t_inventory_record` VALUES ('11', '1', '1000', '2024-07-03 21:52:34', 'stock in');
 INSERT INTO `t_inventory_record` VALUES ('12', '1', '500', '2024-07-03 21:52:34', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('13', '30001', '9998', '2024-07-15 23:21:46', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('14', '30001', '10000', '2024-07-15 23:27:57', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('15', '30001', '9998', '2024-07-15 23:33:17', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('16', '30001', '9996', '2024-07-15 23:41:11', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('17', '30001', '9998', '2024-07-15 23:41:42', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('18', '30001', '9996', '2024-07-15 23:56:44', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('19', '30001', '9998', '2024-07-16 00:00:08', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('20', '30001', '9996', '2024-07-16 00:06:09', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('21', '30001', '9998', '2024-07-16 00:07:14', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('22', '1', '1000', '2024-07-21 19:21:39', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('23', '1', '500', '2024-07-21 19:22:16', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('24', '30001', '9996', '2024-09-03 00:51:26', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('25', '30001', '9998', '2024-09-03 00:58:11', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('26', '30001', '9996', '2024-09-03 01:05:09', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('27', '30001', '9998', '2024-09-03 01:05:10', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('28', '30001', '9996', '2024-09-03 01:07:30', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('29', '30001', '9998', '2024-09-03 01:07:42', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('30', '30001', '9996', '2024-09-03 01:09:35', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('31', '30001', '9998', '2024-09-03 01:09:35', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('32', '30001', '9996', '2024-09-03 01:09:49', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('33', '30001', '9998', '2024-09-03 01:09:50', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('34', '30001', '9996', '2024-09-10 16:10:01', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('35', '30001', '9998', '2024-09-10 16:10:46', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('36', '30001', '9996', '2024-09-10 16:45:44', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('37', '30001', '9998', '2024-09-10 16:49:07', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('38', '30001', '9996', '2024-09-10 16:58:53', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('39', '30001', '9994', '2024-09-10 17:00:03', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('40', '30001', '9996', '2024-09-10 17:00:05', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('41', '30001', '9994', '2024-09-10 17:03:16', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('42', '30001', '9996', '2024-09-10 17:03:18', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('43', '1', '1000', '2024-09-10 17:16:05', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('44', '1', '500', '2024-09-10 17:16:06', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('45', '30001', '9994', '2024-09-10 17:38:37', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('46', '30001', '9996', '2024-09-10 17:38:38', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('47', '1', '1000', '2024-09-10 17:39:08', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('48', '1', '500', '2024-09-10 17:39:08', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('49', '30001', '9994', '2024-09-10 17:39:11', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('50', '30001', '9996', '2024-09-10 17:39:13', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('51', '1', '1000', '2024-09-10 20:18:44', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('52', '1', '500', '2024-09-10 20:18:44', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('53', '30001', '9994', '2024-09-27 16:46:50', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('54', '30001', '9992', '2024-09-27 16:58:49', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('55', '30001', '9994', '2024-09-27 17:05:45', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('56', '30001', '9992', '2024-09-27 17:09:24', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('57', '30001', '9994', '2024-09-27 17:09:25', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('58', '30001', '9992', '2024-09-27 17:09:39', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('59', '30001', '9994', '2024-09-27 17:09:41', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('60', '1', '1000', '2024-09-29 13:19:02', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('61', '1', '500', '2024-09-29 13:19:02', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('62', '30001', '9992', '2024-09-29 13:19:05', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('63', '30001', '9994', '2024-09-29 13:19:06', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('64', '1', '1000', '2024-09-29 13:23:16', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('65', '1', '500', '2024-09-29 13:23:16', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('66', '30001', '9992', '2024-09-29 13:23:20', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('67', '30001', '9994', '2024-09-29 13:23:21', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('68', '1', '1000', '2024-09-29 13:42:27', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('69', '1', '500', '2024-09-29 13:42:28', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('70', '1', '1000', '2024-09-29 23:49:05', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('71', '1', '500', '2024-09-29 23:49:05', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('72', '1', '1000', '2024-09-30 00:53:05', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('73', '1', '500', '2024-09-30 00:53:06', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('74', '1', '1000', '2024-10-05 19:05:31', 'create');
+INSERT INTO `t_inventory_record` VALUES ('75', '1', '500', '2024-10-05 19:05:32', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('76', '1', '1000', '2024-10-06 00:00:19', 'create');
+INSERT INTO `t_inventory_record` VALUES ('77', '1', '500', '2024-10-06 00:00:19', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('78', '1', '1000', '2024-10-06 10:47:27', 'create');
+INSERT INTO `t_inventory_record` VALUES ('79', '1', '1500', '2024-10-06 10:47:27', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('80', '1', '1000', '2024-10-06 10:47:28', 'stock out');
+INSERT INTO `t_inventory_record` VALUES ('81', '1', '1000', '2024-10-06 11:24:22', 'create');
+INSERT INTO `t_inventory_record` VALUES ('82', '1', '1500', '2024-10-06 11:24:23', 'stock in');
+INSERT INTO `t_inventory_record` VALUES ('83', '1', '1000', '2024-10-06 11:24:23', 'stock out');
+
+-- ----------------------------
+-- Table structure for t_journal_account
+-- ----------------------------
+DROP TABLE IF EXISTS `t_journal_account`;
+CREATE TABLE `t_journal_account` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `account_id` int(20) DEFAULT NULL,
+  `amount` decimal(20,2) DEFAULT NULL,
+  `operation` varchar(50) DEFAULT NULL,
+  `operate_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=530 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_journal_account
+-- ----------------------------
+INSERT INTO `t_journal_account` VALUES ('456', '10010', '20000.00', 'topUp', '2024-07-15 20:35:29');
+INSERT INTO `t_journal_account` VALUES ('457', '10010', '3000.00', 'payoff', '2024-07-15 20:37:43');
+INSERT INTO `t_journal_account` VALUES ('458', '10010', '3000.00', 'refund', '2024-07-15 20:40:56');
+INSERT INTO `t_journal_account` VALUES ('459', '10001', '200000.00', 'topUp', '2024-07-15 23:45:58');
+INSERT INTO `t_journal_account` VALUES ('460', '10001', '8000.00', 'payoff', '2024-07-15 23:56:43');
+INSERT INTO `t_journal_account` VALUES ('461', '10001', '8000.00', 'payoff', '2024-07-16 00:00:08');
+INSERT INTO `t_journal_account` VALUES ('462', '10001', '8000.00', 'payoff', '2024-07-16 00:06:09');
+INSERT INTO `t_journal_account` VALUES ('463', '10001', '8000.00', 'refund', '2024-07-16 00:07:14');
+INSERT INTO `t_journal_account` VALUES ('464', '10001', '8000.00', 'payoff', '2024-09-10 16:45:43');
+INSERT INTO `t_journal_account` VALUES ('465', '10001', '8000.00', 'refund', '2024-09-10 16:49:07');
+INSERT INTO `t_journal_account` VALUES ('466', '10001', '8000.00', 'payoff', '2024-09-10 17:03:16');
+INSERT INTO `t_journal_account` VALUES ('467', '10001', '8000.00', 'refund', '2024-09-10 17:03:17');
+INSERT INTO `t_journal_account` VALUES ('468', '10001', '8000.00', 'payoff', '2024-09-10 17:38:37');
+INSERT INTO `t_journal_account` VALUES ('469', '10001', '8000.00', 'refund', '2024-09-10 17:38:38');
+INSERT INTO `t_journal_account` VALUES ('470', '10001', '8000.00', 'payoff', '2024-09-10 17:39:11');
+INSERT INTO `t_journal_account` VALUES ('471', '10001', '8000.00', 'refund', '2024-09-10 17:39:13');
+INSERT INTO `t_journal_account` VALUES ('472', '10010', '20000.00', 'topUp', '2024-09-27 15:12:01');
+INSERT INTO `t_journal_account` VALUES ('473', '10010', '20000.00', 'topUp', '2024-09-27 15:17:19');
+INSERT INTO `t_journal_account` VALUES ('474', '10010', '20000.00', 'topUp', '2024-09-27 15:39:35');
+INSERT INTO `t_journal_account` VALUES ('475', '10010', '20000.00', 'topUp', '2024-09-27 15:40:51');
+INSERT INTO `t_journal_account` VALUES ('476', '10010', '2000.00', 'topUp', '2024-09-27 15:40:52');
+INSERT INTO `t_journal_account` VALUES ('477', '10010', '3000.00', 'payoff', '2024-09-27 15:40:52');
+INSERT INTO `t_journal_account` VALUES ('478', '10010', '3000.00', 'refund', '2024-09-27 15:40:52');
+INSERT INTO `t_journal_account` VALUES ('479', '10001', '8000.00', 'payoff', '2024-09-27 16:46:50');
+INSERT INTO `t_journal_account` VALUES ('480', '10001', '8000.00', 'payoff', '2024-09-27 16:58:49');
+INSERT INTO `t_journal_account` VALUES ('481', '10001', '8000.00', 'refund', '2024-09-27 17:05:45');
+INSERT INTO `t_journal_account` VALUES ('482', '10001', '8000.00', 'payoff', '2024-09-27 17:09:24');
+INSERT INTO `t_journal_account` VALUES ('483', '10001', '8000.00', 'refund', '2024-09-27 17:09:25');
+INSERT INTO `t_journal_account` VALUES ('484', '10001', '8000.00', 'payoff', '2024-09-27 17:09:39');
+INSERT INTO `t_journal_account` VALUES ('485', '10001', '8000.00', 'refund', '2024-09-27 17:09:41');
+INSERT INTO `t_journal_account` VALUES ('486', '10010', '20000.00', 'topUp', '2024-09-28 23:02:40');
+INSERT INTO `t_journal_account` VALUES ('487', '10010', '2000.00', 'topUp', '2024-09-28 23:02:40');
+INSERT INTO `t_journal_account` VALUES ('488', '10010', '3000.00', 'payoff', '2024-09-28 23:02:40');
+INSERT INTO `t_journal_account` VALUES ('489', '10010', '3000.00', 'refund', '2024-09-28 23:02:41');
+INSERT INTO `t_journal_account` VALUES ('490', '10010', '20000.00', 'topUp', '2024-09-29 13:18:59');
+INSERT INTO `t_journal_account` VALUES ('491', '10010', '2000.00', 'topUp', '2024-09-29 13:18:59');
+INSERT INTO `t_journal_account` VALUES ('492', '10010', '3000.00', 'payoff', '2024-09-29 13:18:59');
+INSERT INTO `t_journal_account` VALUES ('493', '10010', '3000.00', 'refund', '2024-09-29 13:18:59');
+INSERT INTO `t_journal_account` VALUES ('494', '10001', '8000.00', 'payoff', '2024-09-29 13:19:05');
+INSERT INTO `t_journal_account` VALUES ('495', '10001', '8000.00', 'refund', '2024-09-29 13:19:06');
+INSERT INTO `t_journal_account` VALUES ('496', '10010', '20000.00', 'topUp', '2024-09-29 13:23:12');
+INSERT INTO `t_journal_account` VALUES ('497', '10010', '2000.00', 'topUp', '2024-09-29 13:23:13');
+INSERT INTO `t_journal_account` VALUES ('498', '10010', '3000.00', 'payoff', '2024-09-29 13:23:13');
+INSERT INTO `t_journal_account` VALUES ('499', '10010', '3000.00', 'refund', '2024-09-29 13:23:13');
+INSERT INTO `t_journal_account` VALUES ('500', '10001', '8000.00', 'payoff', '2024-09-29 13:23:19');
+INSERT INTO `t_journal_account` VALUES ('501', '10001', '8000.00', 'refund', '2024-09-29 13:23:21');
+INSERT INTO `t_journal_account` VALUES ('502', '10010', '20000.00', 'topUp', '2024-09-29 13:35:19');
+INSERT INTO `t_journal_account` VALUES ('503', '10010', '2000.00', 'topUp', '2024-09-29 13:35:19');
+INSERT INTO `t_journal_account` VALUES ('504', '10010', '3000.00', 'payoff', '2024-09-29 13:35:19');
+INSERT INTO `t_journal_account` VALUES ('505', '10010', '3000.00', 'refund', '2024-09-29 13:35:20');
+INSERT INTO `t_journal_account` VALUES ('506', '10010', '20000.00', 'topUp', '2024-09-29 13:38:23');
+INSERT INTO `t_journal_account` VALUES ('507', '10010', '2000.00', 'topUp', '2024-09-29 13:38:23');
+INSERT INTO `t_journal_account` VALUES ('508', '10010', '3000.00', 'payoff', '2024-09-29 13:38:24');
+INSERT INTO `t_journal_account` VALUES ('509', '10010', '3000.00', 'refund', '2024-09-29 13:38:24');
+INSERT INTO `t_journal_account` VALUES ('510', '10010', '20000.00', 'topUp', '2024-09-29 23:19:52');
+INSERT INTO `t_journal_account` VALUES ('511', '10010', '2000.00', 'topUp', '2024-09-29 23:19:52');
+INSERT INTO `t_journal_account` VALUES ('512', '10010', '3000.00', 'payoff', '2024-09-29 23:19:53');
+INSERT INTO `t_journal_account` VALUES ('513', '10010', '3000.00', 'refund', '2024-09-29 23:19:53');
+INSERT INTO `t_journal_account` VALUES ('514', '10010', '20000.00', 'topUp', '2024-09-29 23:38:37');
+INSERT INTO `t_journal_account` VALUES ('515', '10010', '2000.00', 'topUp', '2024-09-29 23:38:37');
+INSERT INTO `t_journal_account` VALUES ('516', '10010', '3000.00', 'payoff', '2024-09-29 23:38:38');
+INSERT INTO `t_journal_account` VALUES ('517', '10010', '3000.00', 'refund', '2024-09-29 23:38:38');
+INSERT INTO `t_journal_account` VALUES ('518', '10010', '20000.00', 'topUp', '2024-09-30 00:45:37');
+INSERT INTO `t_journal_account` VALUES ('519', '10010', '2000.00', 'topUp', '2024-09-30 00:45:37');
+INSERT INTO `t_journal_account` VALUES ('520', '10010', '3000.00', 'payoff', '2024-09-30 00:45:38');
+INSERT INTO `t_journal_account` VALUES ('521', '10010', '3000.00', 'refund', '2024-09-30 00:45:38');
+INSERT INTO `t_journal_account` VALUES ('522', '10010', '20000.00', 'topUp', '2024-10-06 00:06:22');
+INSERT INTO `t_journal_account` VALUES ('523', '10010', '2000.00', 'topUp', '2024-10-06 00:06:22');
+INSERT INTO `t_journal_account` VALUES ('524', '10010', '3000.00', 'payoff', '2024-10-06 00:06:23');
+INSERT INTO `t_journal_account` VALUES ('525', '10010', '3000.00', 'refund', '2024-10-06 00:06:23');
+INSERT INTO `t_journal_account` VALUES ('526', '10010', '20000.00', 'topUp', '2024-10-06 00:26:48');
+INSERT INTO `t_journal_account` VALUES ('527', '10010', '2000.00', 'topUp', '2024-10-06 00:26:49');
+INSERT INTO `t_journal_account` VALUES ('528', '10010', '3000.00', 'payoff', '2024-10-06 00:26:49');
+INSERT INTO `t_journal_account` VALUES ('529', '10010', '3000.00', 'refund', '2024-10-06 00:26:49');
 
 -- ----------------------------
 -- Table structure for t_order
@@ -3395,8 +3610,8 @@ CREATE TABLE `t_order` (
   `address_id` int(20) NOT NULL,
   `status` varchar(50) DEFAULT NULL,
   `amount` decimal(10,2) NOT NULL,
-  `order_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modify_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `order_time` datetime NOT NULL,
+  `modify_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10022 DEFAULT CHARSET=utf8;
 
@@ -3477,13 +3692,12 @@ INSERT INTO `t_order_item` VALUES ('100210', '10021', '30011', '1', '28.90', '28
 DROP TABLE IF EXISTS `t_payment`;
 CREATE TABLE `t_payment` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `order_id` int(20) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
-  `method` varchar(50) NOT NULL,
+  `method` varchar(50) DEFAULT NULL,
   `status` varchar(50) DEFAULT NULL,
   `payment_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_payment
@@ -3495,14 +3709,18 @@ CREATE TABLE `t_payment` (
 DROP TABLE IF EXISTS `t_points_rule`;
 CREATE TABLE `t_points_rule` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
-  `points_per_dollar` decimal(10,2) NOT NULL,
-  `points_cap` int(10) NOT NULL,
+  `points_per_yuan` decimal(10,2) NOT NULL,
+  `points_cap` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_points_rule
 -- ----------------------------
+INSERT INTO `t_points_rule` VALUES ('1', '0.50', '5000.00');
+INSERT INTO `t_points_rule` VALUES ('2', '1.00', '20000.00');
+INSERT INTO `t_points_rule` VALUES ('3', '1.50', '50000.00');
+INSERT INTO `t_points_rule` VALUES ('4', '2.00', '100000.00');
 
 -- ----------------------------
 -- Table structure for t_product
@@ -3527,21 +3745,21 @@ CREATE TABLE `t_product` (
 -- ----------------------------
 -- Records of t_product
 -- ----------------------------
-INSERT INTO `t_product` VALUES ('30001', 'Apple iPhone X 256GB 深空灰色 移动联通电信4G手机', null, '4000.00', '20004', '100100', null, '/static/img/product1.jpg', '自营', 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30002', 'Apple iPad 平板电脑 2018年新款9.7英寸', null, '12600.00', '20004', '100200', null, '/static/img/product2.jpg', '优惠', 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30003', 'Apple MacBook Pro 13.3英寸笔记本电脑（2017款Core i5处理器/8GB内存/256GB硬盘 MupxT2CH/A）', null, '10688.00', '20004', '100300', null, '/static/img/product3.jpg', '特惠', 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30004', 'Kindle Paperwhite电纸书阅读器 电子书墨水屏 6英寸wifi 黑色', null, '958.00', '20002', '100500', null, '/static/img/product4.jpg', '自营', 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30005', '微软（Microsoft）新Surface Pro 二合一平板电脑笔记本 12.3英寸（i5 8G内存 256G存储）', null, '8288.00', '20005', '100300', null, '/static/img/product5.jpg', null, 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30006', 'Apple Watch Series 3智能手表（GPS款 42毫米 深空灰色铝金属表壳 黑色运动型表带 MQL12CH/A）', null, '2799.00', '20004', '100400', null, '/static/img/product6.jpg', '优惠', 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30007', '华为 HUAWEI Mate 30E Pro 5G麒麟990E SoC芯片 双4000万徕卡电影影像 8GB+256GB青山黛全网通手机', null, '5799.00', '20003', '100100', null, '/static/img/HUAWEI_Mate_30E Pro.jpg', '秒杀', 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30008', 'HUAWEI WATCH GT2 华为手表 运动智能手表 两周长续航/蓝牙通话/血氧检测/麒麟芯片 华为gt2 46mm 曜石黑', null, '1488.00', '20003', '100400', null, '/static/img/WATCH_GT2.jpg', '秒杀', 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30009', '华为平板MatePad Pro【键盘+笔】10.8英寸麒麟990游戏影音娱乐办公学习全面屏平板电脑8G+256G WIFI', null, '4999.00', '20003', '100200', null, '/static/img/MatePad_Pro.jpg', null, 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30010', '领域驱动设计 软件核心复杂性应对之道 英文版(异步图书出品)', null, '82.90', '20006', '300100', null, '/static/img/DDD.jpg', null, 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30011', '实现领域驱动设计(博文视点出品) [Implementing Domain-Driven Design]', null, '82.90', '20006', '300100', null, '/static/img/Implementing_Domain-Driven_Design.jpg', '自营', 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30012', 'SIEMENS/西门子冰箱双开门家用家电变频风冷无霜保鲜对开门两门618升电冰箱KA61EA66TI 滤膜保鲜', null, '7799.00', '20007', '200100', null, '/static/img/siemens01.jpg', null, 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30013', 'SIEMENS/西门子冰箱三门家用家电直冷节能多门小冰箱小型三开门232升电冰箱KG23D113EW', null, '2599.00', '20007', '200100', null, '/static/img/siemens02.jpg', null, 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30014', '荣耀智慧屏X1 65英寸LOK-360 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏', null, '3999.00', '20003', '200200', null, '/static/img/tv.jpg', null, 'on sale', null, null);
-INSERT INTO `t_product` VALUES ('30015', '万利达 商用电压力锅8L10L12L升大容量电高压锅大电饭锅特大号饭煲双胆酒店饭店食堂单位 8升单胆5-9人份', null, '238.00', '20008', '200300', null, '/static/img/fff.png', '自营', 'on sale', null, null);
+INSERT INTO `t_product` VALUES ('30001', 'Apple iPhone X 256GB 深空灰色 移动联通电信4G手机', null, '4000.00', '20004', '100100', '1000', '/static/img/product1.jpg', '自营', 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30002', 'Apple iPad 平板电脑 2018年新款9.7英寸', null, '12600.00', '20004', '100200', '1000', '/static/img/product2.jpg', '优惠', 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30003', 'Apple MacBook Pro 13.3英寸笔记本电脑（2017款Core i5处理器/8GB内存/256GB硬盘 MupxT2CH/A）', null, '10688.00', '20004', '100300', '1000', '/static/img/product3.jpg', '特惠', 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30004', 'Kindle Paperwhite电纸书阅读器 电子书墨水屏 6英寸wifi 黑色', null, '958.00', '20002', '100500', '1002', '/static/img/product4.jpg', '自营', 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30005', '微软（Microsoft）新Surface Pro 二合一平板电脑笔记本 12.3英寸（i5 8G内存 256G存储）', null, '8288.00', '20005', '100300', '1001', '/static/img/product5.jpg', null, 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30006', 'Apple Watch Series 3智能手表（GPS款 42毫米 深空灰色铝金属表壳 黑色运动型表带 MQL12CH/A）', null, '2799.00', '20004', '100400', '1000', '/static/img/product6.jpg', '优惠', 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30007', '华为 HUAWEI Mate 30E Pro 5G麒麟990E SoC芯片 双4000万徕卡电影影像 8GB+256GB青山黛全网通手机', null, '5799.00', '20003', '100100', '1003', '/static/img/HUAWEI_Mate_30E Pro.jpg', '秒杀', 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30008', 'HUAWEI WATCH GT2 华为手表 运动智能手表 两周长续航/蓝牙通话/血氧检测/麒麟芯片 华为gt2 46mm 曜石黑', null, '1488.00', '20003', '100400', '1003', '/static/img/WATCH_GT2.jpg', '秒杀', 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30009', '华为平板MatePad Pro【键盘+笔】10.8英寸麒麟990游戏影音娱乐办公学习全面屏平板电脑8G+256G WIFI', null, '4999.00', '20003', '100200', '1003', '/static/img/MatePad_Pro.jpg', null, 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30010', '领域驱动设计 软件核心复杂性应对之道 英文版(异步图书出品)', null, '82.90', '20006', '300100', '2000', '/static/img/DDD.jpg', null, 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30011', '实现领域驱动设计(博文视点出品) [Implementing Domain-Driven Design]', null, '82.90', '20006', '300100', '2001', '/static/img/Implementing_Domain-Driven_Design.jpg', '自营', 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30012', 'SIEMENS/西门子冰箱双开门家用家电变频风冷无霜保鲜对开门两门618升电冰箱KA61EA66TI 滤膜保鲜', null, '7799.00', '20007', '200100', '1004', '/static/img/siemens01.jpg', null, 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30013', 'SIEMENS/西门子冰箱三门家用家电直冷节能多门小冰箱小型三开门232升电冰箱KG23D113EW', null, '2599.00', '20007', '200100', '1004', '/static/img/siemens02.jpg', null, 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30014', '荣耀智慧屏X1 65英寸LOK-360 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏', null, '3999.00', '20003', '200200', '1005', '/static/img/tv.jpg', null, 'on sale', '2024-09-04 22:57:33', null);
+INSERT INTO `t_product` VALUES ('30015', '万利达 商用电压力锅8L10L12L升大容量电高压锅大电饭锅特大号饭煲双胆酒店饭店食堂单位 8升单胆5-9人份', null, '238.00', '20008', '200300', '3000', '/static/img/fff.png', '自营', 'on sale', '2024-09-04 22:57:33', null);
 
 -- ----------------------------
 -- Table structure for t_product_category
@@ -3677,7 +3895,7 @@ CREATE TABLE `t_role_granted_authority` (
   `authority_id` int(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_role_granted_authority` (`role_id`,`authority_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_role_granted_authority
@@ -3702,11 +3920,13 @@ CREATE TABLE `t_staff` (
   `create_time` datetime DEFAULT NULL,
   `modify_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20003 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_staff
 -- ----------------------------
+INSERT INTO `t_staff` VALUES ('20001', '老子', 'male', '110114202201214455', '2022-01-21', 'laozi@126.com', '13600002222', '20001', '2024-10-05 13:51:25', null);
+INSERT INTO `t_staff` VALUES ('20002', '庄子', 'male', '140110198910123456', '1989-10-12', 'zhuangzi@126.com', '13688881234', '20002', '2024-10-05 13:53:20', null);
 
 -- ----------------------------
 -- Table structure for t_supplier
@@ -3741,14 +3961,16 @@ INSERT INTO `t_supplier` VALUES ('20008', '万利达集团有限公司', '010-67
 DROP TABLE IF EXISTS `t_upgrade_rule`;
 CREATE TABLE `t_upgrade_rule` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
-  `vip_level` int(2) NOT NULL,
-  `points_need` int(10) NOT NULL,
+  `vip_level` varchar(10) NOT NULL,
+  `points_need` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_upgrade_rule
 -- ----------------------------
+INSERT INTO `t_upgrade_rule` VALUES ('0', 'silver', '0.00');
+INSERT INTO `t_upgrade_rule` VALUES ('1', 'golden', '10000.00');
 
 -- ----------------------------
 -- Table structure for t_user
@@ -3772,10 +3994,10 @@ CREATE TABLE `t_user` (
 INSERT INTO `t_user` VALUES ('998', 'test1', '{noop}1111', '0', '0', '0', '0', 'guest');
 INSERT INTO `t_user` VALUES ('999', 'test', '{noop}1111', '0', '0', '0', '0', 'guest');
 INSERT INTO `t_user` VALUES ('10001', 'admin', '{noop}1234', '0', '0', '0', '0', 'administrator');
-INSERT INTO `t_user` VALUES ('10002', 'guest', '{bcrypt}$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG', '0', '0', '0', '0', 'guest');
+INSERT INTO `t_user` VALUES ('10002', 'guest', '{noop}1234', '0', '0', '0', '0', 'guest');
 INSERT INTO `t_user` VALUES ('10003', 'mary', '{noop}1234', '0', '0', '0', '0', 'customer');
 INSERT INTO `t_user` VALUES ('10004', 'jack', '{noop}1234', '0', '0', '0', '0', 'customer');
-INSERT INTO `t_user` VALUES ('10005', 'patric', '{noop}1111', '0', '0', '0', '0', 'staff');
+INSERT INTO `t_user` VALUES ('20001', 'patric', '{noop}1111', '0', '0', '0', '0', 'staff');
 
 -- ----------------------------
 -- Table structure for t_user_granted_authority
@@ -3788,7 +4010,7 @@ CREATE TABLE `t_user_granted_authority` (
   `authority_id` int(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_user_granted_authority` (`user_id`,`authority_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user_granted_authority
@@ -3808,7 +4030,7 @@ CREATE TABLE `t_user_granted_role` (
   `role_id` int(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_user_granted_role` (`user_id`,`role_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of t_user_granted_role
@@ -3816,7 +4038,7 @@ CREATE TABLE `t_user_granted_role` (
 INSERT INTO `t_user_granted_role` VALUES ('1', 'T', '10001', '20001');
 INSERT INTO `t_user_granted_role` VALUES ('2', 'T', '10003', '20002');
 INSERT INTO `t_user_granted_role` VALUES ('3', 'T', '10004', '20002');
-INSERT INTO `t_user_granted_role` VALUES ('4', 'T', '10005', '20003');
+INSERT INTO `t_user_granted_role` VALUES ('4', 'T', '20001', '20003');
 
 -- ----------------------------
 -- Table structure for t_vip
@@ -3826,9 +4048,9 @@ CREATE TABLE `t_vip` (
   `id` int(20) NOT NULL,
   `create_time` datetime DEFAULT NULL,
   `modify_time` datetime DEFAULT NULL,
-  `vip_type` varchar(10) NOT NULL,
-  `points` int(20) DEFAULT NULL,
-  `accumulated_points` int(20) DEFAULT NULL,
+  `vip_level` varchar(10) NOT NULL,
+  `points` decimal(10,2) DEFAULT NULL,
+  `accumulated_points` decimal(10,2) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `credit_limit` decimal(20,4) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -3837,10 +4059,10 @@ CREATE TABLE `t_vip` (
 -- ----------------------------
 -- Records of t_vip
 -- ----------------------------
-INSERT INTO `t_vip` VALUES ('10009', '2022-08-18 14:40:15', null, 'golden', '3000', '20000', null, '50000.0000');
-INSERT INTO `t_vip` VALUES ('10012', '2022-08-18 14:40:15', '2022-08-18 14:42:12', 'golden', '12000', '30000', null, '50000.0000');
-INSERT INTO `t_vip` VALUES ('10013', '2021-03-12 00:00:00', null, 'silver', '1000', '5000', null, null);
-INSERT INTO `t_vip` VALUES ('10014', '2021-12-09 00:00:00', null, 'silver', '500', '1000', null, null);
+INSERT INTO `t_vip` VALUES ('10009', '2022-08-18 14:40:15', '2024-09-10 14:47:20', 'golden', '3000.00', '20200.00', null, '50000.0000');
+INSERT INTO `t_vip` VALUES ('10012', '2022-08-18 14:40:15', '2022-08-18 14:42:12', 'golden', '12000.00', '30000.00', null, '50000.0000');
+INSERT INTO `t_vip` VALUES ('10013', '2021-03-12 00:00:00', null, 'silver', '1000.00', '5000.00', null, null);
+INSERT INTO `t_vip` VALUES ('10014', '2021-12-09 00:00:00', null, 'silver', '500.00', '1000.00', null, null);
 
 -- ----------------------------
 -- Table structure for t_vip_discount
@@ -3853,7 +4075,7 @@ CREATE TABLE `t_vip_discount` (
   `end_time` datetime DEFAULT NULL,
   `discount` decimal(5,4) DEFAULT NULL,
   `discount_type` varchar(20) DEFAULT NULL,
-  `vip_type` varchar(10) DEFAULT NULL,
+  `vip_level` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
