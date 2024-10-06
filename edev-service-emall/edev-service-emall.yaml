@@ -1,0 +1,73 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: edev-service-emall
+  name: edev-service-emall
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edev-service-emall
+  template:
+    metadata:
+      name: edev-service-emall
+      labels:
+        app: edev-service-emall
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                      - edev-service-emall
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: edev-service-emall
+          image: repository:5000/edev-service-emall:<VERSION>
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1000Mi
+            requests:
+              cpu: 100m
+              memory: 300Mi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: edev-service-emall
+  name: edev-service-emall
+  namespace: default
+spec:
+  ports:
+    - port: 8880
+      targetPort: 8880
+  selector:
+    app: edev-service-emall
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-edev-emall
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: emall
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: edev-service-emall
+                port:
+                  number: 8880
