@@ -55,3 +55,8 @@ spring:
       maxIdel: 10
       minIdel: 0
     timeout: 1000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

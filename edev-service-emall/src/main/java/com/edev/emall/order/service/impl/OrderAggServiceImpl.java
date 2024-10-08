@@ -55,9 +55,7 @@ public class OrderAggServiceImpl implements OrderAggService {
         paymentService.payoff(orderId, paymentMethod);
 
         log.debug("stock out for each of the order items");
-        order.getOrderItems().forEach(orderItem -> {
-            inventoryService.stockOut(orderItem.getProductId(), orderItem.getQuantity());
-        });
+        order.getOrderItems().forEach(orderItem -> inventoryService.stockOut(orderItem.getProductId(), orderItem.getQuantity()));
 
         log.debug("accumulate points if is vip");
         vipService.accumulatePoints(order.getCustomerId(), order.getAmount());
@@ -79,8 +77,6 @@ public class OrderAggServiceImpl implements OrderAggService {
         paymentService.refund(orderId);
 
         log.debug("stock in for each of the order items");
-        order.getOrderItems().forEach(orderItem -> {
-            inventoryService.stockIn(orderItem.getProductId(), orderItem.getQuantity());
-        });
+        order.getOrderItems().forEach(orderItem -> inventoryService.stockIn(orderItem.getProductId(), orderItem.getQuantity()));
     }
 }

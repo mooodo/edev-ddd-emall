@@ -3,7 +3,6 @@ package com.edev.emall.security.entity;
 import com.edev.emall.authority.entity.Authority;
 import com.edev.emall.authority.entity.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
@@ -21,21 +20,11 @@ public class DefaultUserDetails implements UserDetails {
 
         Collection<GrantedAuthority> grantedAuthorities = new HashSet<>();
         authorities.forEach(authority -> {
-            grantedAuthorities.add(new GrantedAuthority() {
-                @Override
-                public String getAuthority() {
-                    return authority.getName();
-                }
-            });
+            grantedAuthorities.add((GrantedAuthority) authority::getName);
         });
 
-        grantedAuthorities.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return user.getUserType();
-            }
-        });
-        return grantedAuthorities.stream().distinct().collect(Collectors.toSet());
+        grantedAuthorities.add((GrantedAuthority) user::getUserType);
+        return grantedAuthorities.stream().collect(Collectors.toSet());
     }
 
     @Override
