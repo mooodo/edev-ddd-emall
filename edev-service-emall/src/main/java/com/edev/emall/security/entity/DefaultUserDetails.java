@@ -10,21 +10,22 @@ import java.util.stream.Collectors;
 
 public class DefaultUserDetails implements UserDetails {
     private final User user;
+    private final Collection<GrantedAuthority> grantedAuthorities;
     public DefaultUserDetails(User user) {
         this.user = user;
-    }
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // add all the authorities of user and role together.
         List<Authority> authorities = new ArrayList<>(user.getAuthorities());
         user.getRoles().forEach(role -> authorities.addAll(role.getAuthorities()));
 
+        // convert authority to GrantedAuthority
         Collection<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        authorities.forEach(authority -> {
-            grantedAuthorities.add((GrantedAuthority) authority::getName);
-        });
-
+        authorities.forEach(authority -> grantedAuthorities.add((GrantedAuthority) authority::getName));
         grantedAuthorities.add((GrantedAuthority) user::getUserType);
-        return grantedAuthorities.stream().collect(Collectors.toSet());
+        this.grantedAuthorities = grantedAuthorities;
+    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.grantedAuthorities;
     }
 
     @Override

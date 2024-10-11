@@ -11,6 +11,7 @@ mybatis:
 security:
   passwordEncoder: noop
   loginUrl: http://localhost:8080
+  whiteListUrls: /login,/logout,/user/register,/orm/**,/query/**,/list/**,/actuator/**,/userinfo
 logging:
   level:
     com.edev.support: INFO

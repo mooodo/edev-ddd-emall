@@ -216,7 +216,7 @@
 2.**积分规则（PointsRule） - 值对象**
 - **属性**：
   - 规则ID（Id）：唯一标识。
-  - 购买金额对应积分（PointsPerDollar）：每消费一定金额获得的积分数。
+  - 购买金额对应积分（PointsPerYuan）：每消费一定金额获得的积分数。
   - 积分上限（PointsCap）：单次购买可获得的积分上限。
 - **方法**：
   - calculatePoints(vipId,amount)：根据消费金额计算积分。
@@ -227,7 +227,7 @@
 3.**升级规则（UpgroundRule） - 值对象**
 - **属性**：
   - 规则ID（Id）：唯一标识。
-  - 会员类型（VipLevel）：会员的等级
+  - 会员等级（VipLevel）：会员的等级
   - 积分要求（PointsNeed）：达到该等级所需的积分
 - **方法**：
   - calculateLevel(vipId)：根据会员累计积分计算会员等级
@@ -366,7 +366,7 @@
   - 商品ID（ProductID）：关联的商品标识。
   - 变化数量（Quantity）：库存变化的数量。
   - 变化时间（UpdateTime）：库存变化的时间。
-  - 进行的操作（Operation）：库存变化的操作，如入库、库存扣减、库存调拨等
+  - 操作类型（Operation）：库存变化的操作，如入库、库存扣减、库存调拨等
 - **方法**：
   - insert(InventoryRecord)：记录每次库存的变动。
   - remove(id)：删除某条库存变动记录

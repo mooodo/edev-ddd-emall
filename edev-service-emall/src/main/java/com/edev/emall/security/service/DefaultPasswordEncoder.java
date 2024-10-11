@@ -3,14 +3,16 @@ package com.edev.emall.security.service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.*;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class DefaultPasswordEncoder extends DelegatingPasswordEncoder {
     private static final String passwordEncoder = "bcrypt";
 
-    public static DefaultPasswordEncoder build() {
+    public static Map<String, PasswordEncoder> idToPasswordEncoderMap() {
         Map<String, PasswordEncoder> encoders = new HashMap<>();
         encoders.put("bcrypt", new BCryptPasswordEncoder());
         encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
@@ -22,10 +24,10 @@ public class DefaultPasswordEncoder extends DelegatingPasswordEncoder {
         encoders.put("MD5", new MessageDigestPasswordEncoder("MD5"));
         encoders.put("SHA-1", new MessageDigestPasswordEncoder("SHA-1"));
         encoders.put("SHA-256", new MessageDigestPasswordEncoder("SHA-256"));
-        return new DefaultPasswordEncoder(passwordEncoder, encoders);
+        return encoders;
     }
 
-    protected DefaultPasswordEncoder(String idForEncode, Map<String, PasswordEncoder> idToPasswordEncoder) {
-        super(idForEncode, idToPasswordEncoder);
+    public DefaultPasswordEncoder() {
+        super(passwordEncoder, idToPasswordEncoderMap());
     }
 }

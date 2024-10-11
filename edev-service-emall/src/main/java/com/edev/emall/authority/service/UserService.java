@@ -2,6 +2,8 @@ package com.edev.emall.authority.service;
 
 import com.edev.emall.authority.entity.User;
 
+import java.util.List;
+
 public interface UserService {
     Long register(User user);
     void modify(User user);
@@ -9,5 +11,5 @@ public interface UserService {
     User load(Long userId);
     void removeByName(String username);
     User loadByName(String username);
-    public boolean userExists(String username);
+    boolean userExists(String username);
 }
