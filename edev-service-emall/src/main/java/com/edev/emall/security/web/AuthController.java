@@ -1,6 +1,8 @@
 package com.edev.emall.security.web;
 
+import com.edev.emall.authority.entity.User;
 import com.edev.emall.security.entity.Credentials;
+import com.edev.emall.security.utils.SecurityHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,12 +28,17 @@ public class AuthController {
         );
         return ResponseEntity.ok(authentication);
     }
-
     @RequestMapping(value = "/userinfo", produces = "application/json")
     public Map<String, Object> userinfo(UsernamePasswordAuthenticationToken token) {
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("user", token.getPrincipal());
         userInfo.put("authorities", AuthorityUtils.authorityListToSet(token.getAuthorities()));
         return userInfo;
+    }
+    @Autowired
+    private SecurityHelper securityHelper;
+    @GetMapping("/currentUser")
+    public User currentUser() {
+        return securityHelper.getCurrentUser();
     }
 }

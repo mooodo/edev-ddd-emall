@@ -6,6 +6,7 @@ import com.edev.support.entity.ResultSet;
 import com.edev.support.query.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -20,14 +21,17 @@ public class StaffController {
         return staffService.create(staff);
     }
     @PostMapping("modify")
+    @PreAuthorize("hasAuthority('staff')")
     public void modify(@RequestBody Staff staff) {
         staffService.modify(staff);
     }
     @GetMapping("remove")
+    @PreAuthorize("hasAuthority('staff')")
     public void remove(Long staffId) {
         staffService.remove(staffId);
     }
     @GetMapping("load")
+    @PreAuthorize("hasAuthority('staff')")
     public Staff load(Long staffId) {
         return staffService.load(staffId);
     }

@@ -1,11 +1,14 @@
 package com.edev.emall.security;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -15,6 +18,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private String loginUrl;
     @Value("${security.whiteListUrls}")
     private String whiteListUrls;
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
     // Define which requests need authenticate and authorise.
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -27,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 //.loginPage(loginUrl)
-                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/userinfo")
                 .permitAll()
                 .and().httpBasic();
     }

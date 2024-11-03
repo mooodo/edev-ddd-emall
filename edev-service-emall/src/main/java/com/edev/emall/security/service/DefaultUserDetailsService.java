@@ -31,8 +31,8 @@ public class DefaultUserDetailsService implements UserDetailsService {
     private void loadAuthoritiesForEachRole(User user) {
         List<Long> roleIds = new ArrayList<>();
         user.getRoles().forEach(role->roleIds.add(role.getId()));
-        List<Role> roles = roleService.loadAll(roleIds);
-        Map<Long, List<Authority>> map = new HashMap<>();
+        Collection<Role> roles = roleService.loadAll(roleIds);
+        Map<Long, Collection<Authority>> map = new HashMap<>();
         roles.forEach(role -> map.put(role.getId(), role.getAuthorities()));
         user.getRoles().forEach(role -> role.setAuthorities(map.get(role.getId())));
     }

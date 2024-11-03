@@ -6,6 +6,7 @@ import com.edev.support.entity.ResultSet;
 import com.edev.support.query.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,18 +20,22 @@ public class InventoryController {
     @Autowired
     private InventoryService inventoryService;
     @GetMapping("stockIn")
+    @PreAuthorize("hasAuthority('staff')")
     public void stockIn(Long productId, Integer quantity) {
         inventoryService.stockIn(productId, quantity);
     }
     @GetMapping("stockOut")
+    @PreAuthorize("hasAuthority('staff')")
     public void stockOut(Long productId, Integer quantity) {
         inventoryService.stockOut(productId, quantity);
     }
     @GetMapping("remove")
+    @PreAuthorize("hasAuthority('staff')")
     public void remove(Long productId) {
         inventoryService.remove(productId);
     }
     @GetMapping("check")
+    @PreAuthorize("hasAuthority('staff')")
     public Inventory check(Long productId) {
         return inventoryService.check(productId);
     }

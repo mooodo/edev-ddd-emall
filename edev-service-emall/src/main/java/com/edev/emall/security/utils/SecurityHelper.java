@@ -1,5 +1,7 @@
 package com.edev.emall.security.utils;
 
+import com.edev.emall.authority.entity.User;
+import com.edev.emall.authority.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -14,25 +16,28 @@ import java.util.Collection;
 public class SecurityHelper {
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserService userService;
     public boolean passwordIsMatch(String source, String target) {
         return passwordEncoder.matches(source, target);
     }
-    private Authentication getCurrentUser() {
-        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
-        if(currentUser==null)
-            throw new BadCredentialsException("No Authentication for the current user!");
-        return currentUser;
+    private Authentication getAuthentication() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication==null)
+            throw new BadCredentialsException("No Authentication!");
+        return authentication;
     }
     public String getMyName() {
-        Authentication currentUser = getCurrentUser();
-        return currentUser.getName();
+        return getAuthentication().getName();
     }
     public String getPassword() {
-        Authentication currentUser = getCurrentUser();
-        return currentUser.getCredentials().toString();
+        return getAuthentication().getCredentials().toString();
     }
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Authentication currentUser = getCurrentUser();
-        return currentUser.getAuthorities();
+        return getAuthentication().getAuthorities();
+    }
+    public User getCurrentUser() {
+        String username = getAuthentication().getName();
+        return userService.loadByName(username);
     }
 }

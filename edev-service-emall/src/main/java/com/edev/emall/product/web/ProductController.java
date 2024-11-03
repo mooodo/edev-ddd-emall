@@ -10,6 +10,7 @@ import com.edev.support.entity.ResultSet;
 import com.edev.support.query.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -21,18 +22,22 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     @PostMapping("create")
+    @PreAuthorize("hasAuthority('staff')")
     public Long create(@RequestBody Product product) {
         return productService.create(product);
     }
     @PostMapping("modify")
+    @PreAuthorize("hasAuthority('staff')")
     public void modify(@RequestBody Product product) {
         productService.modify(product);
     }
     @GetMapping("remove")
+    @PreAuthorize("hasAuthority('staff')")
     public void remove(Long productId) {
         productService.remove(productId);
     }
     @GetMapping("load")
+    @PreAuthorize("hasAuthority('staff')")
     public Product load(Long productId) {
         return productService.load(productId);
     }
